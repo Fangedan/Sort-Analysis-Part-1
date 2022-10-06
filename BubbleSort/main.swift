@@ -1,41 +1,46 @@
-func swap(integers:inout [Int], firstIndex:Int, secondIndex:Int) {
-    let numerodos = integers[secondIndex]
+var unsortedIntegers = [String]()
+func input () -> [String]{
+    var line : String?
+    repeat {
+        line = readLine()
+        if line != nil {
+            unsortedIntegers.append(line!)
+        }
 
-    integers[secondIndex] = integers[firstIndex]
-    integers[firstIndex] = numerodos
-
+    } while line != nil
+    return unsortedIntegers
 }
+bubbleSort(unsortedIntegers)
+func swap(integers: inout [String], firstIndex: Int, secondIndex: Int){
+    let temp =  integers[firstIndex]
+    integers[firstIndex] = integers[secondIndex]
+    integers[secondIndex] = temp
+}
+func bubbleSort(_ unsortedIntegers: [String])  {
+    var sortingIntegers = input()
 
-var numoe = unsortedIntegers.count
-var mm = true
-var array = unsortedIntegers
-var x = 0
-var pass = 0
-var swaps = 0
-var totalSwaps = 0
-print("Pass: "+String(pass)+", Swaps: "+String(swaps)+"/"+String(totalSwaps)+", Array: \(array)")
-while mm
-{
-    mm = false
-    while x != numoe - 1
-    {
-        let number1 = array[x]
-        let number2 = array[x+1]
-        if number1 > number2
-        {
-            swap(integers: &array, firstIndex: x+1, secondIndex: x)
-            x += 1
-            swaps += 1
-            mm = true
-            totalSwaps += 1
+    var totalSwapCount = 0
+    var  swapCountPerPass: Int
+    var x  = 0
+    //    print("Pass: 0, Swaps: 0/0, Array: \(unsortedIntegers)")
+    repeat {
+        x += 1
+        swapCountPerPass = 0
+        for index in 0 ..< sortingIntegers.count - 1{
+            let thisIndex = index
+            let nextIndex = index + 1
+
+            let thisElement = sortingIntegers[thisIndex]
+            let nextElement =  sortingIntegers[nextIndex]
+            if thisElement > nextElement {
+                swap(integers: &sortingIntegers, firstIndex: thisIndex, secondIndex: nextIndex)
+                totalSwapCount += 1
+                swapCountPerPass +=  1
+
+            }
         }
-        else
-        {
-            x += 1
-        }
-    }
-    pass += 1
-    print("Pass: "+String(pass)+", Swaps: "+String(swaps)+"/"+String(totalSwaps)+", Array: \(array)")
-    swaps = 0
-    x = 0
+        //      print("Pass: \(x), Swaps: \(swapCountPerPass)/\(totalSwapCount), Array: \(sortingIntegers)")
+
+    }while swapCountPerPass > 0
+
 }
