@@ -1,30 +1,43 @@
-var pass = 0
-var swaptotal = 0
-var swaps = 0
+var unsortedStrings = [String]();
 
-func selectionSort(_ array: [Int]) {
-
-    var arr = array                    // 2
-
-    for numon in 0 ..< arr.count - 1 {     // 3
-
-        var lowest = numon
-        for y in numon + 1 ..< arr.count {   // 4
-            if arr[y] < arr[lowest] {
-                lowest = y
-                swaps = 0
-            }
-        }
-
-        if numon != lowest {               // 5
-            arr.swapAt(numon, lowest)
-            swaps += 1
-        }
-        swaptotal += 1
-        pass += 1
-        print("Pass: \(pass), Swaps: \(swaps)/\(swaptotal), Array: \(arr)")
-    }
+while let line = readLine() {
+    if(line.count == 0) {break;}
+    unsortedStrings.append(line)
 }
 
-print("Pass: 0, Swaps: 0/0, Array: \(unsortedIntegers)")
-selectionSort(unsortedIntegers)
+// Add your code below:
+
+func swap(integers: inout [String], firstIndex:Int, secondIndex:Int) { // Swap two places in an integer array
+    let temp = integers[secondIndex]
+    integers[secondIndex] = integers[firstIndex]
+    integers[firstIndex] = temp
+}
+
+var strings = unsortedStrings
+
+var passes = 0;
+var totalSwaps = 0;
+
+print("Pass: \(passes), Swaps: 0/\(totalSwaps), Array: \(strings)")
+
+// loop through the array from 0 until 1 to end (excluding last bc it will have already been swapped)
+for i in 0 ..< strings.count - 1 {
+    var minI = i;
+
+    // list through the rest of the array, finding the smallest value and saving that index
+    for j in i + 1 ..< strings.count {
+        if(strings[j] < strings[minI]) {
+            minI = j
+        }
+    }
+
+    // actually do the swap
+    swap(integers: &strings, firstIndex: i, secondIndex: minI)
+
+    // output the wanted string
+    passes += 1;
+    totalSwaps += 1;
+    //    print("Pass: \(passes), Swaps: 1/\(totalSwaps), Array: \(strings)")
+}
+
+print(strings)
